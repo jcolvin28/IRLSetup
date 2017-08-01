@@ -30,10 +30,10 @@ addEnsStats <- function(df.ens, cols = 2:22) {
 load('~/Dropbox/IRLSetup/data/setup.RData')
 current.runcycle <- gefs.setup.recent$validtime[1]
 # remove the missing rows in gefs.setup
-gefs.setup.1 <- gefs.setup.1[4:28,]
-gefs.setup.2 <- gefs.setup.2[4:28,]
-gefs.setup.3 <- gefs.setup.3[4:28,]
-gefs.setup.recent <- gefs.setup.recent[4:28,]
+gefs.setup.1 <- gefs.setup.1[4:44,]
+gefs.setup.2 <- gefs.setup.2[4:44,]
+gefs.setup.3 <- gefs.setup.3[4:44,]
+gefs.setup.recent <- gefs.setup.recent[4:44,]
 # match asos times
 asos.setup <- asos.setup[asos.setup$roundvalid >= gefs.setup.1$validtime[1],]
 gefs.setup.recent.melt <- melt(gefs.setup.recent, id.vars = 'validtime')
@@ -42,7 +42,7 @@ gefs.setup.2 <- addEnsStats(gefs.setup.2)
 gefs.setup.3 <- addEnsStats(gefs.setup.3)
 gefs.setup.recent <- addEnsStats(gefs.setup.recent)
 date.breaks <- seq.POSIXt(asos.setup$roundvalid[1] - hours(3),
-                          gefs.setup.recent$validtime[24], by = '12 hours')
+                          gefs.setup.recent$validtime[40], by = '24 hours')
 ggplot(gefs.setup.recent, aes(x = validtime)) +
     geom_hline(aes(yintercept = 0), linetype = 'dashed') +
     geom_vline(aes(xintercept = as.numeric(gefs.setup.recent$validtime[1]))) +
@@ -109,4 +109,4 @@ Click [here](irl.html) to learn more about IRL research.
 
 # Reference
 
-Colvin, J, S. Lazarus, M. Splitt, and R. Weaver, 2017: In preparation.
+Colvin, J, S. Lazarus, M. Splitt, R. Weaver, and P. Taeb, 2017: In preparation.

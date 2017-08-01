@@ -29,7 +29,7 @@ times.needs.kmlb <- df.all$validtime[is.na(df.all$kmlb.u)]
 # get KMLB ASOS data for this time frame
 df.kmlb <- riem_measures(station = "MLB", 
                          date_start = format(times.needs.kmlb[1], '%Y-%m-%d'), 
-                         date_end = format(Sys.Date() + days(2), '%Y-%m-%d'))
+                         date_end = format(Sys.Date() + days(4), '%Y-%m-%d'))
 
 # Only keep the hourly updates, which happen to be the only observations with
 # MSLP

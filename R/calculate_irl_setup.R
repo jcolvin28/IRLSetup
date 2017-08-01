@@ -152,7 +152,7 @@ rm(df.gefs.1, df.gefs.2, df.gefs.3, df.gefs.recent)
 
 # get hourly KMLB ASOS data for the last few days to plot
 df.kmlb <- riem_measures(station = "MLB", 
-                         date_start = format(Sys.Date() - days(4), '%Y-%m-%d'), 
+                         date_start = format(Sys.Date() - days(6), '%Y-%m-%d'), 
                          date_end = format(Sys.Date() + days(1), '%Y-%m-%d'))
 
 # Only keep the hourly updates, which happen to be the only observations with
@@ -177,7 +177,8 @@ kmlb.setup <- getSetup(df.kmlb$roundvalid, df.kmlb$u, df.kmlb$v,
                        type = 'asos')
 
 # create a dataframe with just this information
-asos.setup <- data.frame(roundvalid = df.kmlb$roundvalid, setup = kmlb.setup)
+asos.setup <- data.frame(roundvalid = df.kmlb$roundvalid, setup = kmlb.setup, 
+                         wspd = df.kmlb$wspd, wdir = df.kmlb$drct)
 save(gefs.setup.1, gefs.setup.2, gefs.setup.3, gefs.setup.recent, asos.setup, 
      file = 'data/setup.RData')
 rmarkdown::render('R/index.Rmd', output_dir = '~/Dropbox/IRLSetup/docs/')
