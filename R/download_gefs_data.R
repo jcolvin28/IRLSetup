@@ -115,8 +115,8 @@ fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')
 run <- '18'
 
 # dataframe to store final information
-df.run <- data.frame(runtime = rep(fcst.time, 28), 
-                     fcsthour = seq(0, 81, by = 3))
+df.run <- data.frame(runtime = rep(fcst.time, 44), 
+                     fcsthour = seq(0, 129, by = 3))
 df.run$validtime <- df.run$runtime + hours(df.run$fcsthour)
 
 # loop through all the ensemble members and download all the data
@@ -129,7 +129,7 @@ for (ens.mem in ens.mems) {
     mem.v <- NULL
     
     # loop through all forecast hours and download data
-    for (fcst.hour in seq(0, 81, by = 3)) {
+    for (fcst.hour in seq(0, 129, by = 3)) {
         # for (fcst.hour in 0:0) { # for testing purposes
         
         # download the file for this ensemble member and forecast hour
