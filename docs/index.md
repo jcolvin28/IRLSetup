@@ -3,7 +3,7 @@ Current Forecast
 
 [![](img/raw_setup.png)](https://bhlmn.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2017-08-02 08:20:33.
+> Forecast valid 2017-08-02 16:56:48.
 
 Explanation
 -----------
