@@ -127,7 +127,7 @@ ggsave('~/Dropbox/IRLSetup/docs/img/raw_setup.png', width = 8, height = 6,
 
 ## Explanation
 
-<img align="left" src="img/sensor_locations.png">
+<img align="left" src="img/sensor_locations.png" style="padding-right: 12px; padding-bottom: 12px">
 
 The above image shows the ensemble forecast of [Indian River Lagoon (IRL)](https://en.wikipedia.org/wiki/Indian_River_Lagoon) setup, defined as the difference in water elevation between Titusville, FL (orange star), and Sebastian, FL (white star). In general, southerly (northerly) winds result in increased water elevation near Titusville (Sebastian) and positive (negative) setup.
 
