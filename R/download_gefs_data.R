@@ -148,10 +148,29 @@ for (ens.mem in ens.mems) {
                                 ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
                                 sep = '')
         system(wgrib2.command)
-        
+
         # now load these .csv files in
-        df.u <- read.csv(paste(getwd(), '/tmp/u.csv', sep = ''), header = TRUE, 
-                         stringsAsFactors = FALSE)
+        tryCatch(df.u <- read.csv(paste(getwd(), '/tmp/u.csv', sep = ''), 
+                                  header = TRUE, stringsAsFactors = FALSE),
+                 error = function(e) {
+                     print('Download failed. Second attempt ...')
+                     # download the file for this ensemble member and forecast hour
+                     gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                                               run, getFcstHrString(fcst.hour), tmp.path)
+                     
+                     # trim the .grb2 file to only contain 4 closest cells to KMLB
+                     gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
+                     
+                     # load in u and v information from this trimmed file
+                     wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
+                                             ' -match UGRD -spread ', getwd(), '/tmp/u.csv', 
+                                             sep = '')
+                     system(wgrib2.command)
+                     wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
+                                             ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
+                                             sep = '')
+                     system(wgrib2.command)
+                 })
         df.v <- read.csv(paste(getwd(), '/tmp/v.csv', sep = ''), header = TRUE, 
                          stringsAsFactors = FALSE)
         
