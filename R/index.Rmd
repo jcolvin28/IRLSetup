@@ -27,7 +27,7 @@ addEnsStats <- function(df.ens, cols = 2:22) {
 ## Current Forecast
 
 ```{r current_forecast, echo=FALSE, include=FALSE}
-load('~/Dropbox/IRLSetup/data/setup.RData')
+load(paste(getwd(), '/data/setup.RData', sep = ''))
 current.runcycle <- gefs.setup.recent$validtime[1]
 # remove the missing rows in gefs.setup
 gefs.setup.1 <- gefs.setup.1[4:44,]
@@ -117,11 +117,11 @@ p <- p + geom_segment(data = asos.barb,
            arrow = arrow(length = unit(0.2,"cm"), type = 'closed'))
 print(p)
 # end wind barb
-ggsave('~/Dropbox/IRLSetup/docs/img/raw_setup.png', width = 8, height = 6,
+ggsave(paste(getwd(), '/docs/img/raw_setup.png', sep = ''), width = 8, height = 6,
        units = 'in', dpi = 150)
 ```
 
-[![](img/raw_setup.png)](https://bhlmn.github.io/IRLSetup/img/raw_setup.png)
+[![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
 > Forecast valid `r Sys.time()`.
 
@@ -135,8 +135,10 @@ The current (18 UTC `r as.Date(current.runcycle)`) 0.5° [Global Ensemble Foreca
 
 Because real time observations of IRL setup do not exist, for verification purposes hourly estimates are provided (orange points) using wind observations from [Orlando Melbourne International Airport (KMLB)](https://en.wikipedia.org/wiki/Orlando_Melbourne_International_Airport) following Colvin et al. (2017).
 
-Click [here](irl.html) to learn more about IRL research.
+## Additional Research
 
-# Reference
+Real time coastal wind, wave, and water level guidance for the IRL is provided by the [Florida Tech ADCIRC Storm Guidance System (FIT-ASGS)](https://fl-asgs.github.io/ECFL-IRL/).
+
+## Reference
 
 Colvin, J, S. Lazarus, M. Splitt, R. Weaver, and P. Taeb, 2017: In preparation.

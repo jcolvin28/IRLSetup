@@ -10,7 +10,26 @@
 library(riem) # access to ASOS data through iowa state
 library(lubridate) # awesome date handling
 library(xts) # also awesome date handling
-library(WindVerification) # wind data handling
+# library(WindVerification) # wind data handling
+
+# functions ---------------------------------------------------------------
+
+# function to turn wspd and wdir into a vector of u and v components
+getuv <- function(wspd, wdir) {
+    
+    # If either wspd or wdir are missing, we cannot do the calculation!
+    if (is.na(wspd) | is.na(wdir)) {return(c(NA, NA))}
+    
+    # calculate u and v
+    u <- -1 * wspd * sin(0.01745329251 * wdir) # 0.01745329251 is pi / 180
+    v <- -1 * wspd * cos(0.01745329251 * wdir)
+    
+    # round off floating point errors
+    if (u < 0.0001 & u > -0.0001) {u <- 0}
+    if (v < 0.0001 & v > -0.0001) {v <- 0}
+    
+    return(c(u, v))
+}
 
 # paths for /tmp and /util
 tmp.path <- paste(getwd(), '/tmp', sep = '')
@@ -39,7 +58,7 @@ df.kmlb <- df.kmlb[!is.na(df.kmlb$mslp),]
 df.kmlb$roundvalid <- as.POSIXct(align.time(df.kmlb$valid, n=60*15))
 
 # convert wind speed from knots to m/s
-df.kmlb$wspd <- convertunits(df.kmlb$sknt, inunits = 'knots', outunits = 'm/s')
+df.kmlb$wspd <- df.kmlb$sknt * 0.51444
 
 # get u and v
 uv <- mapply(getuv, df.kmlb$wspd, df.kmlb$drct)

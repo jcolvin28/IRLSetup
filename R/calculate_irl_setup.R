@@ -2,7 +2,7 @@
 # Bryan Holman || v0.1 || 20170501
 
 # Given the GEFS ensemble data just downloaded, this R script calculates the
-# setup according to the procedure outlined in Colvin et al. (2016).
+# setup according to the procedure outlined in Colvin et al. (2017).
 
 # v0.1 -> Calculates wind run for each GEFS ensemble member using the
 # interpolated data only. No bias correction or ensemble calibration performed
@@ -14,9 +14,44 @@ library(rmarkdown) # rendering index.Rmd at the end
 library(riem) # access to ASOS data through iowa state
 library(lubridate) # awesome date handling
 library(xts) # also awesome date handling
-library(WindVerification) # wind data handling
+# library(WindVerification) # wind data handling
 
 # functions ---------------------------------------------------------------
+
+# function to turn wspd and wdir into a vector of u and v components
+getuv <- function(wspd, wdir) {
+    
+    # If either wspd or wdir are missing, we cannot do the calculation!
+    if (is.na(wspd) | is.na(wdir)) {return(c(NA, NA))}
+    
+    # calculate u and v
+    u <- -1 * wspd * sin(0.01745329251 * wdir) # 0.01745329251 is pi / 180
+    v <- -1 * wspd * cos(0.01745329251 * wdir)
+    
+    # round off floating point errors
+    if (u < 0.0001 & u > -0.0001) {u <- 0}
+    if (v < 0.0001 & v > -0.0001) {v <- 0}
+    
+    return(c(u, v))
+}
+
+# get the wind speed and direction from u and v components
+getwspdwdir <- function(u, v) {
+    
+    # If either u or v are missing, we cannot do the calculation!
+    if (anyNA(c(u, v))) {return(c(NA, NA))}
+    
+    # Calculate wind speed and wind direction
+    wspd <- sqrt(u^2 + v^2)
+    wdir <- atan2(-1 * u, -1 * v) * 57.2957795131 # 57.2957795131 is 180 / pi
+    
+    # atan2 goes from -pi to pi, so you need to add 360 if negative
+    if (wdir < 0) {wdir <- wdir + 360}
+    if (round(wdir) >= 360) {wdir <- 0}
+    
+    # return wind speed first, then wind direction rounded to nearest integer
+    return(c(wspd, round(wdir)))
+}
 
 # calculates the 12-hour wind run given a series of u and v forecasts, returns
 # the u and v wind run components
@@ -124,6 +159,7 @@ gefs.setup.1 <- data.frame(validtime = df.gefs.1$validtime)
 gefs.setup.2 <- data.frame(validtime = df.gefs.2$validtime)
 gefs.setup.3 <- data.frame(validtime = df.gefs.3$validtime)
 gefs.setup.recent <- data.frame(validtime = df.gefs.recent$validtime)
+df.csv <- gefs.setup.recent
 
 # loop through all the ensemble members and calculate the wind runs
 for (ens.mem in ens.mems) {
@@ -146,7 +182,16 @@ for (ens.mem in ens.mems) {
         getSetup(times = df.gefs.recent$validtime, 
                  df.gefs.recent[[paste(ens.mem, 'u', sep = '.')]], 
                  df.gefs.recent[[paste(ens.mem, 'v', sep = '.')]])
+    ens.windRun <- 
+        getWindRun(times = df.gefs.recent$validtime, 
+                   df.gefs.recent[[paste(ens.mem, 'u', sep = '.')]], 
+                   df.gefs.recent[[paste(ens.mem, 'v', sep = '.')]])
+    windRun.spdDir <- mapply(getwspdwdir, ens.windRun$u, ens.windRun$v)
+    df.csv[[paste(ens.mem, 'wspd', sep = '.')]] <- windRun.spdDir[1,]
+    df.csv[[paste(ens.mem, 'wdir', sep = '.')]] <- windRun.spdDir[2,]
+        
 }
+
 # clear up some memory
 rm(df.gefs.1, df.gefs.2, df.gefs.3, df.gefs.recent)
 
@@ -165,7 +210,7 @@ df.kmlb$roundvalid <- as.POSIXct(format(df.kmlb$roundvalid,
                                         '%Y-%m-%d %H:%M:%S'), tz = 'UTC')
 
 # convert wind speed from knots to m/s
-df.kmlb$wspd <- convertunits(df.kmlb$sknt, inunits = 'knots', outunits = 'm/s')
+df.kmlb$wspd <- df.kmlb$sknt * 0.51444
 
 # get u and v
 uv <- mapply(getuv, df.kmlb$wspd, df.kmlb$drct)
@@ -181,7 +226,8 @@ asos.setup <- data.frame(roundvalid = df.kmlb$roundvalid, setup = kmlb.setup,
                          wspd = df.kmlb$wspd, wdir = df.kmlb$drct)
 save(gefs.setup.1, gefs.setup.2, gefs.setup.3, gefs.setup.recent, asos.setup, 
      file = 'data/setup.RData')
-rmarkdown::render('R/index.Rmd', output_dir = '~/Dropbox/IRLSetup/docs/')
+Sys.setenv(RSTUDIO_PANDOC=paste(getwd(), '/util/pandoc', sep = ''))
+rmarkdown::render('R/index.Rmd', output_dir = paste(getwd(), '/docs/', sep = ''))
 # save df.run to disk
 # write.csv(df.run, file = paste(data.path, '/', 'gefs_', date, '.csv', sep = ''), 
 #           row.names = FALSE)
