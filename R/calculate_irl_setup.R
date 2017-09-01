@@ -226,7 +226,8 @@ asos.setup <- data.frame(roundvalid = df.kmlb$roundvalid, setup = kmlb.setup,
                          wspd = df.kmlb$wspd, wdir = df.kmlb$drct)
 save(gefs.setup.1, gefs.setup.2, gefs.setup.3, gefs.setup.recent, asos.setup, 
      file = 'data/setup.RData')
-Sys.setenv(RSTUDIO_PANDOC=paste(getwd(), '/util/pandoc', sep = ''))
+# Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc')
+Sys.setenv(RSTUDIO_PANDOC='/usr/local/bin/pandoc')
 rmarkdown::render('R/index.Rmd', output_dir = paste(getwd(), '/docs/', sep = ''))
 # save df.run to disk
 # write.csv(df.run, file = paste(data.path, '/', 'gefs_', date, '.csv', sep = ''), 

@@ -27,7 +27,8 @@ addEnsStats <- function(df.ens, cols = 2:22) {
 ## Current Forecast
 
 ```{r current_forecast, echo=FALSE, include=FALSE}
-load(paste(getwd(), '/data/setup.RData', sep = ''))
+load(paste(getwd(), '/../data/setup.RData', sep = ''))
+# load('~/Dropbox/IRLSetup/data/setup.RData')
 current.runcycle <- gefs.setup.recent$validtime[1]
 # remove the missing rows in gefs.setup
 gefs.setup.1 <- gefs.setup.1[4:44,]
@@ -117,7 +118,9 @@ p <- p + geom_segment(data = asos.barb,
            arrow = arrow(length = unit(0.2,"cm"), type = 'closed'))
 print(p)
 # end wind barb
-ggsave(paste(getwd(), '/docs/img/raw_setup.png', sep = ''), width = 8, height = 6,
+# ggsave('~/Dropbox/IRLSetup/docs/img/raw_setup.png', width = 8, height = 6,
+#        units = 'in', dpi = 150)
+ggsave(paste(getwd(), '/../docs/img/raw_setup.png', sep = ''), width = 8, height = 6,
        units = 'in', dpi = 150)
 ```
 
