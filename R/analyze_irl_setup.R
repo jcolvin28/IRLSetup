@@ -79,7 +79,6 @@ p <- ggplot(gefs.setup.recent, aes(x = validtime)) +
                      date_labels = '%b %d\n %H UTC',
                      limits = c(date.breaks[1], NA)) +
     theme(legend.position="bottom", legend.title = element_blank())
-
 # let's do some wind barbs!
 
 # scale the wind vectors according to the plot
