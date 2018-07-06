@@ -14,9 +14,6 @@ library(rmarkdown) # rendering index.Rmd at the end
 library(riem) # access to ASOS data through iowa state
 library(lubridate) # awesome date handling
 library(xts) # also awesome date handling
-## Peyman Taeb (Jul18- for archiving observed/mean/median)
-library(xlsx)  # Read write Excel 
-##
 #
 # library(WindVerification) # wind data handling
 
@@ -231,20 +228,6 @@ asos.setup <- data.frame(roundvalid = df.kmlb$roundvalid, setup = kmlb.setup,
 save(gefs.setup.1, gefs.setup.2, gefs.setup.3, gefs.setup.recent, asos.setup, 
      file = 'data/setup.RData')
 #
-#excel.setup <- data.frame(gefs.setup.1, gefs.setup.2, gefs.setup.3, gefs.setup.recent, asos.setup)
-#excel.setup <- data.frame(setup = kmlb.setup)
-#write.xlsx(gefs.setup.1, file = 'data/excel.xlsx',sheetName="gefs.setup.1",
-#	col.names=TRUE, row.names=TRUE, append=FALSE)
-#write.xlsx(gefs.setup.2, file = 'data/excel.xlsx',sheetName="gefs.setup.2",
-#        col.names=TRUE, row.names=TRUE, append=TRUE)
-#write.xlsx(gefs.setup.3, file = 'data/excel.xlsx',sheetName="gefs.setup.3",
-#        col.names=TRUE, row.names=TRUE, append=TRUE)
-#write.xlsx(gefs.setup.recent, file = 'data/excel.xlsx',sheetName="gefs.setup.recent",
-#        col.names=TRUE, row.names=TRUE, append=TRUE)
-## Peyman Taeb (Jul18- for archiving observed/mean/median)
-write.xlsx(asos.setup, file = 'data/observed.xlsx',sheetName="asos.setup",
-        col.names=TRUE, row.names=TRUE, append=FALSE)
-## 
 # Sys.setenv(RSTUDIO_PANDOC='/Applications/RStudio.app/Contents/MacOS/pandoc')
 Sys.setenv(RSTUDIO_PANDOC='/usr/local/bin/pandoc')
 rmarkdown::render('R/index.Rmd', output_dir = paste(getwd(), '/docs/', sep = ''))

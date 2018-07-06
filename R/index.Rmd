@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2) # data visualization
 library(reshape2) # melting dataframes
 library(lubridate) # awesome date/time functions
+library(xlsx)
 
 # given a data frame of ensemble data, add ens average, max, min, and median
 addEnsStats <- function(df.ens, cols = 2:22) {
@@ -42,6 +43,8 @@ gefs.setup.1 <- addEnsStats(gefs.setup.1)
 gefs.setup.2 <- addEnsStats(gefs.setup.2)
 gefs.setup.3 <- addEnsStats(gefs.setup.3)
 gefs.setup.recent <- addEnsStats(gefs.setup.recent)
+write.xlsx(gefs.setup.recent, file = 'data/stat.xlsx',sheetName="statsetup",
+        col.names=TRUE, row.names=TRUE, append=FALSE)
 date.breaks <- seq.POSIXt(asos.setup$roundvalid[1] - hours(3),
                           gefs.setup.recent$validtime[40], by = '24 hours')
 p <- ggplot(gefs.setup.recent, aes(x = validtime)) +

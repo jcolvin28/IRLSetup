@@ -6,8 +6,7 @@
 library(reshape2)
 library(ggplot2)
 library(lubridate)
-library(WindVerification)
-
+#library(WindVerification)
 # functions ---------------------------------------------------------------
 
 # given a data frame of ensemble data, add ens average, max, min, and median
@@ -25,6 +24,7 @@ addEnsStats <- function(df.ens, cols = 2:22) {
 # # the code below does okay ... not awesome ... too many lines!
 # p <- ggplot(df.setup.melt, aes(x = validtime, y = value, color = variable)) + 
 #     geom_line() + theme_minimal() + theme(legend.position="bottom")
+# load(paste(getwd(), '/data/setup.RData', sep = ''))  # Added by PT for test, igonre it
 load('~/Dropbox/IRLSetup/data/setup.RData')
 # remove the missing rows in gefs.setup
 gefs.setup.1 <- gefs.setup.1[4:44,]
@@ -38,6 +38,7 @@ gefs.setup.1 <- addEnsStats(gefs.setup.1)
 gefs.setup.2 <- addEnsStats(gefs.setup.2)
 gefs.setup.3 <- addEnsStats(gefs.setup.3)
 gefs.setup.recent <- addEnsStats(gefs.setup.recent)
+#
 date.breaks <- seq.POSIXt(asos.setup$roundvalid[1] - hours(3), 
                           gefs.setup.recent$validtime[40], by = '12 hours')
 p <- ggplot(gefs.setup.recent, aes(x = validtime)) + 
