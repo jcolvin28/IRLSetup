@@ -40,13 +40,15 @@ gefs.setup.recent <- addEnsStats(gefs.setup.recent)
 stat.recent <- gefs.setup.recent[,1, drop=FALSE]
 # Calculating mean and median and appending to the 2nd and 3rd columns
 stat.recent$avg <- gefs.setup.recent[,23]
+stat.recent$min <- gefs.setup.recent[,24]
+stat.recent$max <- gefs.setup.recent[,25]
 stat.recent$med <- gefs.setup.recent[,26]
 # Naming the archive file 
 currentDate <- Sys.Date()
 fileName <- paste("data/stat",currentDate,".xlsx",sep="")
 # Writing an archived file in xlsx format
 write.xlsx(stat.recent, file = fileName,sheetName="forecast.recent",
-        col.names=TRUE, row.names=TRUE, append=FALSE) 
+        col.names=TRUE, row.names=TRUE, append=FALSE)
 write.xlsx(asos.setup, file = fileName,sheetName="observed.setup",
         col.names=TRUE, row.names=TRUE, append=TRUE)
 #
