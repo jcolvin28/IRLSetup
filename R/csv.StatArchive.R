@@ -53,13 +53,6 @@ stat.recent$ensemble_max <- gefs.setup.recent[,25]
 stat.recent$ensemble_med <- gefs.setup.recent[,26]
 # Naming the archive file 
 currentDate <- Sys.Date()
-#fileNameF <- paste("data/StatsFrcst",currentDate,".csv",sep="")
-#fileNameO <- paste("data/StatsObs",currentDate,".csv",sep="")
-# Writing an archived file in xlsx format
-#rite.csv(stat.recent, file = fileNameF,
-#      col.names=TRUE, row.names=TRUE)
-#rite.csv(asos.setup, file = fileNameO,
-#      col.names=TRUE, row.names=TRUE)
 fileNameOF <- paste("data/Stats",currentDate,".csv",sep="")
 ForeObs <- merge(stat.recent, asos.setup, all= TRUE, by=c("Data/Time"))
 write.csv(ForeObs, file = fileNameOF)
