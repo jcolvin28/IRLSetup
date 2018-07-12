@@ -1,5 +1,5 @@
 #StatArchive.R      
-# Peyman Taeb // v0.2 // 20180705
+# Peyman Taeb // v0.2 // 20180712
 
 # This script computes the mean and median of the predicted setup
 # (gefs.setup.recent) from setup.RData file, and stores them in 
