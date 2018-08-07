@@ -3,7 +3,7 @@ Current Forecast
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2018-08-07 08:10:27.
+> Forecast valid 2018-08-07 10:10:11.
 
 Explanation
 -----------
