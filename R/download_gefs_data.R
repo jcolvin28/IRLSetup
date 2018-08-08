@@ -110,10 +110,19 @@ ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06',
               'gep14', 'gep15', 'gep16', 'gep17', 'gep18', 'gep19', 'gep20')
 
 # date/run to grab data (yesterday, 18z)
-date <- format(Sys.Date() - days(1), '%Y%m%d')
-fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')
-run <- '18'
-
+# date <- format(Sys.Date() - days(1), '%Y%m%d')                          # BH, cycle 18 of previous day
+# fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
+# run <- '18' 								  # BH, to here
+#
+date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
+fcst.time <- as.POSIXct(Sys.Date(), tz = 'UTC')     # PT, ...
+# reading the current cycle number   				 # PT
+fileName <- "/home/ptaeb/ wind-setup/current.run"     			# PT
+conn <- file(fileName,open="r")      					# PT
+linn <-readLines(conn)               					# PT
+run <- print(linn[1])             					# PT
+close(conn)                          					# PT, to here               
+#
 # dataframe to store final information
 df.run <- data.frame(runtime = rep(fcst.time, 44), 
                      fcsthour = seq(0, 129, by = 3))

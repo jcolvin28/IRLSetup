@@ -51,9 +51,15 @@ stat.recent$ensemble_avg <- gefs.setup.recent[,23]
 stat.recent$ensemble_min <- gefs.setup.recent[,24]
 stat.recent$ensemble_max <- gefs.setup.recent[,25]
 stat.recent$ensemble_med <- gefs.setup.recent[,26]
+# reading the current cycle number                                       
+fileName <- "/home/ptaeb/wind-setup/current.run"        
+conn <- file(fileName,open="r")                                        
+linn <-readLines(conn)                                                  
+run <- print(linn[1])                                                   
+close(conn)                                                            
 # Naming the archive file 
 currentDate <- Sys.Date()
-fileNameOF <- paste("data/Stats",currentDate,".csv",sep="")
+fileNameOF <- paste("data/Stats",currentDate,"-cycle",run,".csv",sep="")
 ForeObs <- merge(stat.recent, asos.setup, all= TRUE, by=c("Data/Time"))
 write.csv(ForeObs, file = fileNameOF)
 #
