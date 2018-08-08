@@ -1,9 +1,9 @@
-Current Forecast 2018-08-08, Cycle 12UTC
+Current Forecast 2018-08-20, Cycle 12UTC
 ----------------------------------------
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2018-08-08 14:36:15.
+> Forecast valid 2018-08-08 15:10:59.
 
 Explanation
 -----------
@@ -17,7 +17,7 @@ star), and Sebastian, FL (white star). In general, southerly (northerly)
 winds result in increased water elevation near Titusville (Sebastian)
 and positive (negative) setup.
 
-The current cycle 2018-08-08 12UTC 0.5° [Global Ensemble Forecast System
+The current cycle 2018-08-20 12UTC 0.5° [Global Ensemble Forecast System
 (GEFS)](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-ensemble-forecast-system-gefs)
 mean and median forecasts of setup are represented by the red and blue
 curves, respectively. Ensemble spread from the current and three

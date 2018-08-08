@@ -114,14 +114,17 @@ ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06',
 # fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
 # run <- '18' 								  # BH, to here
 #
-date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
-fcst.time <- as.POSIXct(Sys.Date(), tz = 'UTC')     # PT, ...
+#date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
+#fcst.time <- as.POSIXct(Sys.Date() + days(run), tz = 'UTC')     # PT, ...
 # reading the current cycle number   				 # PT
 fileName <- "/home/ptaeb/wind-setup/current.run"     			# PT
 conn <- file(fileName,open="r")      					# PT
 linn <-readLines(conn)               					# PT
 run <- print(linn[1])             					# PT
 close(conn)                          					# PT, to here               
+#
+date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
+fcst.time <- as.POSIXct(Sys.Date() + days(run), tz = 'UTC')     # PT, ...
 #
 # dataframe to store final information
 df.run <- data.frame(runtime = rep(fcst.time, 44), 
