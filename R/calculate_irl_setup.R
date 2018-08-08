@@ -62,7 +62,7 @@ getWindRun <- function(times, us, vs, type = 'model') {
     
     # we can't calculate the 12 hour wind run until we have 12 hours of data!
     # So don't start calculating until this starting point
-    windRun.start <- df$time[1] + hours(9)
+    windRun.start <- df$time[1] + hours(0)
     
     # if we are doing KMLB obs
     if (type == 'asos') windRun.start <- df$time[1] + hours(11)
