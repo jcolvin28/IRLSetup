@@ -22,11 +22,21 @@ addEnsStats <- function(df.ens, cols = 2:22) {
     df.ens$med <- apply(df.ens[cols], 1, median)
     return(df.ens)
 }
+# reading the current cycle number
+fileName <- "/home/ptaeb/wind-setup/current.run"
+conn <- file(fileName,open="r")
+linn <-readLines(conn)
+cycle_num <- print(linn[1])
+close(conn)
+load(paste(getwd(), '/../data/setup.RData', sep = ''))
+# load('~/Dropbox/IRLSetup/data/setup.RData')
+current.runcycle <- gefs.setup.recent$validtime[1]
 ```
 
-## Current Forecast
+## Current Forecast `r as.Date(current.runcycle)`, Cycle `r cycle_num`
 
 ```{r current_forecast, echo=FALSE, include=FALSE}
+#
 load(paste(getwd(), '/../data/setup.RData', sep = ''))
 # load('~/Dropbox/IRLSetup/data/setup.RData')
 current.runcycle <- gefs.setup.recent$validtime[1]
@@ -135,7 +145,7 @@ ggsave(paste(getwd(), '/../docs/img/raw_setup.png', sep = ''), width = 8, height
 
 The above image shows the ensemble forecast of [Indian River Lagoon (IRL)](https://en.wikipedia.org/wiki/Indian_River_Lagoon) setup, defined as the difference in water elevation between Titusville, FL (orange star), and Sebastian, FL (white star). In general, southerly (northerly) winds result in increased water elevation near Titusville (Sebastian) and positive (negative) setup.
 
-The current (18 UTC `r as.Date(current.runcycle)`) 0.5° [Global Ensemble Forecast System (GEFS)](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-ensemble-forecast-system-gefs) mean and median forecasts of setup are represented by the red and blue curves, respectively. Ensemble spread from the current and three previous GEFS runs are shaded grey and bounded by solid and dashed curves, respectively.
+The current cycle `r as.Date(current.runcycle)`-`r cycle_num` UTC 0.5° [Global Ensemble Forecast System (GEFS)](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-ensemble-forecast-system-gefs) mean and median forecasts of setup are represented by the red and blue curves, respectively. Ensemble spread from the current and three previous GEFS runs are shaded grey and bounded by solid and dashed curves, respectively.
 
 Because real time observations of IRL setup do not exist, for verification purposes hourly estimates are provided (orange points) using wind observations from [Orlando Melbourne International Airport (KMLB)](https://en.wikipedia.org/wiki/Orlando_Melbourne_International_Airport) following Colvin et al. (2017).
 
