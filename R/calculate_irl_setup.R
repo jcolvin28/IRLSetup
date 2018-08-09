@@ -204,7 +204,7 @@ df.kmlb <- riem_measures(station = "MLB",
 
 # Only keep the hourly updates, which happen to be the only observations with
 # MSLP
-df.kmlb <- df.kmlb[!is.na(df.kmlb$mslp),]
+# df.kmlb <- df.kmlb[!is.na(df.kmlb$mslp),] # PT
 
 # round valid times to nearest quarter hour, n is in seconds
 df.kmlb$roundvalid <- as.POSIXct(align.time(df.kmlb$valid, n=60*15))

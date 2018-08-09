@@ -47,8 +47,8 @@ times.needs.kmlb <- df.all$validtime[is.na(df.all$kmlb.u)]
 
 # get KMLB ASOS data for this time frame
 df.kmlb <- riem_measures(station = "MLB",       # Function to download weather data
-                         # date_start = format(times.needs.kmlb[1], '%Y-%m-%d'), #BH
-                         date_start = format(Sys.Date() - days(4), '%Y-%m-%d'), # PT
+                         date_start = format(times.needs.kmlb[1], '%Y-%m-%d'), #BH
+                         # date_start = format(Sys.Date() - days(4), '%Y-%m-%d'), # PT
                          date_end = format(Sys.Date() + days(4), '%Y-%m-%d'))
 
 # Only keep the hourly updates, which happen to be the only observations with
