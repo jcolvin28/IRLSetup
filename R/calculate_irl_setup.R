@@ -200,7 +200,7 @@ rm(df.gefs.1, df.gefs.2, df.gefs.3, df.gefs.recent)
 # get hourly KMLB ASOS data for the last few days to plot
 df.kmlb <- riem_measures(station = "MLB", 
                          date_start = format(Sys.Date() - days(6), '%Y-%m-%d'), 
-                         date_end = format(Sys.Date() + days(6), '%Y-%m-%d'))
+                         date_end = format(Sys.Date() + days(1), '%Y-%m-%d'))
 
 # Only keep the hourly updates, which happen to be the only observations with
 # MSLP
