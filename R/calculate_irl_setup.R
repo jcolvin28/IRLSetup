@@ -145,13 +145,18 @@ df.all$runtime <- as.POSIXct(df.all$runtime, tz = 'UTC')
 df.all$validtime <- as.POSIXct(df.all$validtime, tz = 'UTC')
 
 # we will only calculate setup for the last 4 gefs runs
-gefs.runs <- tail(unique(df.all$runtime), 4)
+# gefs.runs <- tail(unique(df.all$runtime), 4)
+gefs.runs <- tail(unique(df.all$runtime), 16)
 
 # get data frames for only these four runs, and neglect kmlb.u & kmlb.v columns
+#df.gefs.1 <- df.all[df.all$runtime == gefs.runs[1],-c(46, 47)]
+#df.gefs.2 <- df.all[df.all$runtime == gefs.runs[2],-c(46, 47)]
+#df.gefs.3 <- df.all[df.all$runtime == gefs.runs[3],-c(46, 47)]
+#df.gefs.recent <- df.all[df.all$runtime == gefs.runs[4],-c(46, 47)]
 df.gefs.1 <- df.all[df.all$runtime == gefs.runs[1],-c(46, 47)]
-df.gefs.2 <- df.all[df.all$runtime == gefs.runs[2],-c(46, 47)]
-df.gefs.3 <- df.all[df.all$runtime == gefs.runs[3],-c(46, 47)]
-df.gefs.recent <- df.all[df.all$runtime == gefs.runs[4],-c(46, 47)]
+df.gefs.2 <- df.all[df.all$runtime == gefs.runs[8],-c(46, 47)]
+df.gefs.3 <- df.all[df.all$runtime == gefs.runs[12],-c(46, 47)]
+df.gefs.recent <- df.all[df.all$runtime == gefs.runs[16],-c(46, 47)]
 
 # clear up some memory
 rm(df.all)
