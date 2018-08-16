@@ -1,9 +1,9 @@
-Current Forecast 2018-08-16, Cycle 06UTC
-----------------------------------------
+Current Forecast 2018-08-16, Cycle 12 UTC
+-----------------------------------------
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2018-08-16 08:22:03.
+> Forecast valid 2018-08-16 14:14:40.
 
 Explanation
 -----------
@@ -17,12 +17,16 @@ star), and Sebastian, FL (white star). In general, southerly (northerly)
 winds result in increased water elevation near Titusville (Sebastian)
 and positive (negative) setup.
 
-The current cycle 2018-08-16 06UTC 0.5° [Global Ensemble Forecast System
+The forecast results are provided for 00, 06, 12, and 18 UTC [Global
+Ensemble Forecast System
 (GEFS)](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/global-ensemble-forecast-system-gefs)
-mean and median forecasts of setup are represented by the red and blue
-curves, respectively. Ensemble spread from the current and three
-previous GEFS runs are shaded grey and bounded by solid and dashed
-curves, respectively.
+cycles. Calculation of the IRL setup is performed shortly after a new
+GEFS cycle is made available on the [data access
+link](http://www.ftp.ncep.noaa.gov/data/nccf/com/gens/prod/). The
+current cycle 2018-08-16 12 UTC 0.5° GEFS mean and median forecasts of
+setup are represented by the red and blue curves, respectively. Ensemble
+spread from the current and three previous GEFS runs are shaded grey and
+bounded by solid and dashed curves, respectively.
 
 Because real time observations of IRL setup do not exist, for
 verification purposes hourly estimates are provided (orange points)
@@ -40,5 +44,8 @@ provided by the [Florida Tech ADCIRC Storm Guidance System
 Reference
 ---------
 
-Colvin, J, S. Lazarus, M. Splitt, R. Weaver, and P. Taeb, 2017: In
-preparation.
+[Wind driven setup in east central Florida's Indian River Lagoon:
+Forcings and
+pameterizations](https://www.sciencedirect.com/science/article/pii/S0272771418303421)
+Jeffrey Colvin, Steven Lazarus, Michael Splitt, Robert Weaver,
+PeymanTaeb.
