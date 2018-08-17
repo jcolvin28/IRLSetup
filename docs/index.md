@@ -1,9 +1,9 @@
-Current Forecast 2018-08-16, Cycle 18 UTC
+Current Forecast 2018-08-17, Cycle 00 UTC
 -----------------------------------------
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2018-08-16 20:24:10.
+> Forecast valid 2018-08-17 02:24:06.
 
 Explanation
 -----------
@@ -23,7 +23,7 @@ Ensemble Forecast System
 cycles. Calculation of the IRL setup is performed shortly after a new
 GEFS cycle is made available on the [data access
 link](http://www.ftp.ncep.noaa.gov/data/nccf/com/gens/prod/). The
-current cycle 2018-08-16 18 UTC 0.5° GEFS mean and median forecasts of
+current cycle 2018-08-17 00 UTC 0.5° GEFS mean and median forecasts of
 setup are represented by the red and blue curves, respectively. Ensemble
 spread from the current and three previous GEFS runs are shaded grey and
 bounded by solid and dashed curves, respectively.
@@ -47,5 +47,6 @@ Reference
 [Wind driven setup in east central Florida's Indian River Lagoon:
 Forcings and
 pameterizations](https://www.sciencedirect.com/science/article/pii/S0272771418303421)
-Jeffrey Colvin, Steven Lazarus, Michael Splitt, Robert Weaver,
-PeymanTaeb.
+
+Jeffrey Colvin, Steven Lazarus, Michael Splitt, Robert Weaver, Peyman
+Taeb.

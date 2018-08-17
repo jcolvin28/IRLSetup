@@ -159,4 +159,5 @@ Real time coastal wind, wave, and water level guidance for the IRL is provided b
 ## Reference
 
 [Wind driven setup in east central Florida's Indian River Lagoon: Forcings and pameterizations](https://www.sciencedirect.com/science/article/pii/S0272771418303421)
-Jeffrey Colvin, Steven Lazarus, Michael Splitt, Robert Weaver, PeymanTaeb.
+
+Jeffrey Colvin, Steven Lazarus, Michael Splitt, Robert Weaver, Peyman Taeb.
