@@ -1,9 +1,9 @@
-Current Forecast 2018-08-24, Cycle 12 UTC
+Current Forecast 2018-08-24, Cycle 18 UTC
 -----------------------------------------
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2018-08-24 14:40:27.
+> Forecast valid 2018-08-24 20:40:41.
 
 Explanation
 -----------
@@ -23,7 +23,7 @@ Ensemble Forecast System
 cycles. Calculation of the IRL setup is performed shortly after a new
 GEFS cycle is made available on the [data access
 link](http://www.ftp.ncep.noaa.gov/data/nccf/com/gens/prod/). The
-current cycle 2018-08-24 12 UTC 0.5° GEFS mean and median forecasts of
+current cycle 2018-08-24 18 UTC 0.5° GEFS mean and median forecasts of
 setup are represented by the red and blue curves, respectively. Ensemble
 spread from the current and three previous GEFS runs are shaded grey and
 bounded by solid and dashed curves, respectively.
