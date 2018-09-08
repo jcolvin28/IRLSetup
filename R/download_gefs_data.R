@@ -145,7 +145,8 @@ for (ens.mem in ens.mems) {
         # for (fcst.hour in 0:0) { # for testing purposes
         
         # download the file for this ensemble member and forecast hour
-        options(error = recover)
+        # options(error = recover)
+        options(error=NULL)
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
         
