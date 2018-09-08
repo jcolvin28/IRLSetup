@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-curl="/usr/bin/curl";
+$curl="/usr/bin/curl";
 
 # get_grib.pl            wesley ebisuzaki
 # v0.9  1/2005

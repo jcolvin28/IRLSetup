@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-$curl="curl";
+$curl="/usr/bin/curl";
 
 # get_inv.pl            wesley ebisuzaki
 # v0.9  1/2005
