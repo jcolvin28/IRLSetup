@@ -149,19 +149,6 @@ for (ens.mem in ens.mems) {
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
         
-    }
-}
-#
-for (ens.mem in ens.mems) {
-    # for (ens.mem in 'gep01') { # for testing purposes
-
-    # vectors to store the interpolated u and v forecasts for this ensemble
-    # member
-    mem.u <- NULL
-    mem.v <- NULL
-
-    # loop through all forecast hours and download data
-    for (fcst.hour in seq(0, 129, by = 3)) {
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
