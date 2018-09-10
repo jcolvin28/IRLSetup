@@ -115,10 +115,10 @@ if ($range ne "") {
    }
 }
 else {
-  sleep(10);
-  print   "No download! No matching grib fields\n";
-  sleep(30);
-  exit 8;
+# sleep(10);
+# print   "No download! No matching grib fields\n";
+# sleep(30);
+# exit 8;
 }
 
 exit 0;
