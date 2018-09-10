@@ -26,34 +26,34 @@ $version="get_inv.pl v0.9.7 4/2017 wesley ebisuzaki\n";
 $file='';
 foreach $_ (@ARGV) {
   SWITCH: {
-    /^-v$|^--version$/ && do { print STDERR $version; exit 8; };
+    /^-v$|^--version$/ && do { print   $version; exit 8; };
     /^ftp:|^http:|^https:/ && do {
 	 if ($file eq '') { $file = $_; last SWITCH; }
 	 else {
-	   print STDERR "error: multiple URLs found\n";
+	   print   "error: multiple URLs found\n";
 	   exit 8;
 	 }
       };
     /^-h$|^--help$/ && do {
-        print STDERR "$0: gets wgrib inventory from net, adds range field\n";
-        print STDERR "   usage: $0 URL-of-wgrib-inventory\n";
-        print STDERR "   ex: $0 http://nomad3.ncep.noaa.gov/pub/gfs/rotating/gblav.t00z.pgrbf12.inv\n\n";
-        print STDERR "This program is part of a package to select GRIB records (messages)\n";
-        print STDERR "to download.  By selecting specific records, the download times can\n";
-        print STDERR "be significantly reduced.  This program uses cURL and supports grib\n";
-        print STDERR "data on http: (most) and ftp: servers that include wgrib inventories.\n";
-        print STDERR "ref: http://www.cpc.ncep.noaa.gov/products/wesley/fast_downloading_grib.html\n";
+        print   "$0: gets wgrib inventory from net, adds range field\n";
+        print   "   usage: $0 URL-of-wgrib-inventory\n";
+        print   "   ex: $0 http://nomad3.ncep.noaa.gov/pub/gfs/rotating/gblav.t00z.pgrbf12.inv\n\n";
+        print   "This program is part of a package to select GRIB records (messages)\n";
+        print   "to download.  By selecting specific records, the download times can\n";
+        print   "be significantly reduced.  This program uses cURL and supports grib\n";
+        print   "data on http: (most) and ftp: servers that include wgrib inventories.\n";
+        print   "ref: http://www.cpc.ncep.noaa.gov/products/wesley/fast_downloading_grib.html\n";
         exit 8;
       };
-    print STDERR "error: unknown parameter: $_\n";
+    print   "error: unknown parameter: $_\n";
     exit 8;
   }
 }
 
 if ($file eq '') {
-  print STDERR $version;
-  print STDERR "\n$0: gets wgrib inventory from net, adds range field\n";
-  print STDERR "   usage: $0 URL-of-wgrib-inventory\n";
+  print   $version;
+  print   "\n$0: gets wgrib inventory from net, adds range field\n";
+  print   "   usage: $0 URL-of-wgrib-inventory\n";
   exit 8;
 }
 
@@ -76,7 +76,7 @@ while (<In>) {
 #    check for missing file
      if (! defined($num) || "$num" eq "") {
         sleep(5);
-        print STDERR "ERROR: Bad URL or not wgrib inventory: $file\n";
+        print   "ERROR: Bad URL or not wgrib inventory: $file\n";
         sleep(3);
         exit 7;
      }
@@ -108,7 +108,7 @@ if ($last != 0) {
 }
 else {
   sleep(5);
-  print STDERR "missing wgrib inventory\n";
+  print   "missing wgrib inventory\n";
   sleep(3);
   if (! -t STDIN) {
 #   not a terminal .. sleep longer

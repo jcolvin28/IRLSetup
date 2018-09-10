@@ -106,7 +106,7 @@ if ($range ne "") {
    $err=system("$curl -f -v -s -r \"$range\" $url -o $file.tmp");
    $err = $err >> 8;
    if ($err != 0) {
-      print   "error in getting file $err\n";
+      printf  "error in getting file $err\n";
       sleep(20);
       exit $err;
    }
@@ -115,10 +115,10 @@ if ($range ne "") {
    }
 }
 else {
-# sleep(10);
-# print   "No download! No matching grib fields\n";
-# sleep(30);
-# exit 8;
+ sleep(10);
+ printf  "No download! No matching grib fields\n";
+ sleep(30);
+ exit 8;
 }
 
 exit 0;
