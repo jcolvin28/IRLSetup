@@ -26,46 +26,46 @@ $url="";
 
 foreach $_ (@ARGV) {
   SWITCH: {
-    /^-v$|^--version$/ && do { print   $version; exit 8; };
+    /^-v$|^--version$/ && do { print STDERR $version; exit 8; };
     /^http:|^https:/ && do {
 	 if ($url eq '') { $url = $_; last SWITCH; }
 	 else {
-	   print   "error: multiple URLs found\n";
+	   print STDERR "error: multiple URLs found\n";
 	   exit 8;
 	 }
       };
     /^-h$|^--help$/ && do {
-        print   "\n$0: gets selected grib records from net\n";
-        print   "   usage: cat {enhanced wgrib inv} | grep FIELD | $0 URL-of-gribfile output-file\n\n";
-        print   "   ex: get_inv.pl http://nomad3.ncep.noaa.gov/pub/gfs/rotating/gblav.t00z.pgrbf12.inv | \\\n";
-        print   "       grep \":HGT:500 mb:\" | \\\n";
-        print   "       $0  http://nomad3.ncep.noaa.gov/pub/gfs/rotating/gblav.t00z.pgrbf12 out.grb\n\n";
-        print   "This program is part of a package to select GRIB records (messages)\n";
-        print   "to download.  By selecting specific records, the download times can\n";
-        print   "be significantly reduced.  This program uses cURL and supports grib\n";
-        print   "data on http: (most) and ftp: servers that include wgrib inventories.\n";
-        print   "ref: http://www.cpc.ncep.noaa.gov/products/wesley/fast_downloading_grib.html\n";
+        print STDERR "\n$0: gets selected grib records from net\n";
+        print STDERR "   usage: cat {enhanced wgrib inv} | grep FIELD | $0 URL-of-gribfile output-file\n\n";
+        print STDERR "   ex: get_inv.pl http://nomad3.ncep.noaa.gov/pub/gfs/rotating/gblav.t00z.pgrbf12.inv | \\\n";
+        print STDERR "       grep \":HGT:500 mb:\" | \\\n";
+        print STDERR "       $0  http://nomad3.ncep.noaa.gov/pub/gfs/rotating/gblav.t00z.pgrbf12 out.grb\n\n";
+        print STDERR "This program is part of a package to select GRIB records (messages)\n";
+        print STDERR "to download.  By selecting specific records, the download times can\n";
+        print STDERR "be significantly reduced.  This program uses cURL and supports grib\n";
+        print STDERR "data on http: (most) and ftp: servers that include wgrib inventories.\n";
+        print STDERR "ref: http://www.cpc.ncep.noaa.gov/products/wesley/fast_downloading_grib.html\n";
         exit 8;
       };
     if ($file eq "") {
       $file = $_;
       last SWITCH;
     }
-    print   "error: multiple URLs found\n";
+    print STDERR "error: multiple URLs found\n";
     sleep(5);
     exit 8;
   }
 }
 
 if ($file eq '' || $url eq '') {
-  print   $version;
-  print   "\n$0: gets gribfile from net using wgrib inventory with range field\n";
-  print   "   usage: cat {wgrib inv with range field} | $0 URL-of-wgrib-inventory OUTPUT-FILE\n";
+  print STDERR $version;
+  print STDERR "\n$0: gets gribfile from net using wgrib inventory with range field\n";
+  print STDERR "   usage: cat {wgrib inv with range field} | $0 URL-of-wgrib-inventory OUTPUT-FILE\n";
   if ($file eq '') {
-    print   "\n\n  MISING OUTPUT-FILE!\n\n";
+    print STDERR "\n\n  MISING OUTPUT-FILE!\n\n";
   }
   else {
-    print   "\n\n  MISING URL!\n\n";
+    print STDERR "\n\n  MISING URL!\n\n";
   }
   exit 8;
 }
@@ -106,7 +106,7 @@ if ($range ne "") {
    $err=system("$curl -f -v -s -r \"$range\" $url -o $file.tmp");
    $err = $err >> 8;
    if ($err != 0) {
-      printf  "error in getting file $err\n";
+      print STDERR "error in getting file $err\n";
       sleep(20);
       exit $err;
    }
@@ -115,10 +115,10 @@ if ($range ne "") {
    }
 }
 else {
- sleep(10);
- printf  "No download! No matching grib fields\n";
- sleep(30);
- exit 8;
+  sleep(10);
+  print STDERR "No download! No matching grib fields\n";
+  sleep(30);
+  exit 8;
 }
 
 exit 0;

@@ -168,7 +168,17 @@ for (ens.mem in ens.mems) {
                  error = function(e) {
                      print('Download failed. Second attempt ...')
                      # download the file for this ensemble member and forecast hour
-                     gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                     res <- NULL;
+		     tryCatch({
+		     res <- evalWithTimeout({
+		     # downloadGRIB()
+                     gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
+                                               run, getFcstHrString(fcst.hour), tmp.path)
+		     }, timeout=1.08);
+		     }, TimeoutException=function(ex) {
+		     cat("Timeout. Skipping.\n");
+                     })
+                     # gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                                run, getFcstHrString(fcst.hour), tmp.path)
                      
                      # trim the .grb2 file to only contain 4 closest cells to KMLB
@@ -195,8 +205,8 @@ for (ens.mem in ens.mems) {
         rm(df.u, df.v)
         file.remove(paste(getwd(), '/tmp/u.csv', sep = ''))
         file.remove(paste(getwd(), '/tmp/v.csv', sep = ''))
-        file.remove(gefs.file)
-        file.remove(gefs.trimmed)
+#       file.remove(gefs.file)
+#        file.remove(gefs.trimmed)
         
     }
     
