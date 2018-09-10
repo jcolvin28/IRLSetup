@@ -179,7 +179,7 @@ for (ens.mem in ens.mems) {
 		     cat("Timeout. Skipping.\n");
                      })
                      # gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
-                                               run, getFcstHrString(fcst.hour), tmp.path)
+                     #                          run, getFcstHrString(fcst.hour), tmp.path)
                      
                      # trim the .grb2 file to only contain 4 closest cells to KMLB
                      gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
