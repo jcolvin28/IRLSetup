@@ -11,7 +11,6 @@
 
 library(lubridate) # nice date handling
 library(dplyr) # easy row binding
-library(R.utils) # PT, timeout
 
 # functions ---------------------------------------------------------------
 
@@ -118,7 +117,7 @@ ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06',
 # date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
 # fcst.time <- as.POSIXct(Sys.Date() + days(run), tz = 'UTC')     # PT, ...
 # reading the current cycle number   			          # PT
-fileName <- "/home/ptaeb/wind-setup/current.run"     			# PT
+fileName <- "/home/ptaeb/IRLsetup/current.run"     			# PT
 conn <- file(fileName,open="r")      					# PT
 linn <-readLines(conn)               					# PT
 run <- print(linn[1])             					# PT
@@ -133,7 +132,7 @@ df.run <- data.frame(runtime = rep(fcst.time, 44),
 df.run$validtime <- df.run$runtime + hours(df.run$fcsthour)     
 
 # loop through all the ensemble members and download all the data
-for (ens.mem in ens.mems) {
+# for (ens.mem in ens.mems) {
     # for (ens.mem in 'gep01') { # for testing purposes
     
     # vectors to store the interpolated u and v forecasts for this ensemble
@@ -142,23 +141,20 @@ for (ens.mem in ens.mems) {
 #   mem.v <- NULL
     
     # loop through all forecast hours and download data
-    for (fcst.hour in seq(0, 129, by = 3)) {
+#    for (fcst.hour in seq(0, 129, by = 3)) {
         # for (fcst.hour in 0:0) { # for testing purposes
-        
         # download the file for this ensemble member and forecast hour
-        res <- withTimeout({
-           downloadGRIB()
-        }, timeout=1.08, onTimeout="silent");
-        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
-                                  run, getFcstHrString(fcst.hour), tmp.path)
-    }
-}
+#        list.files <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+#                                  run, getFcstHrString(fcst.hour), tmp.path)
+#    }
+#}
+list.files(path="/data")
 for (ens.mem in ens.mems) {
     mem.u <- NULL
     mem.v <- NULL         
         for (fcst.hour in seq(0, 129, by = 3)) {
         # trim the .grb2 file to only contain 4 closest cells to KMLB
-        gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
+        gefs.trimmed <- trimGRIB(wgrib2.path, list.files, lats, lons)
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
@@ -175,11 +171,11 @@ for (ens.mem in ens.mems) {
                                   header = TRUE, stringsAsFactors = FALSE),
                  error = function(e) {
                      print('Download failed. Second attempt ...')
-                     gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                     list.files <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                                run, getFcstHrString(fcst.hour), tmp.path)
                      
                      # trim the .grb2 file to only contain 4 closest cells to KMLB
-                     gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
+                     gefs.trimmed <- trimGRIB(wgrib2.path, list.files, lats, lons)
                      
                      # load in u and v information from this trimmed file
                      wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
@@ -202,7 +198,7 @@ for (ens.mem in ens.mems) {
         rm(df.u, df.v)
         file.remove(paste(getwd(), '/tmp/u.csv', sep = ''))
         file.remove(paste(getwd(), '/tmp/v.csv', sep = ''))
-        file.remove(gefs.file)
+#       file.remove(list.files)
         file.remove(gefs.trimmed)
         
     }

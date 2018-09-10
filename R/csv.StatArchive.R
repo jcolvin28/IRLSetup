@@ -52,7 +52,7 @@ stat.recent$ensemble_min <- gefs.setup.recent[,24]
 stat.recent$ensemble_max <- gefs.setup.recent[,25]
 stat.recent$ensemble_med <- gefs.setup.recent[,26]
 # reading the current cycle number                                       
-fileName <- "/home/ptaeb/wind-setup/current.run"        
+fileName <- "/home/ptaeb/IRLsetup/current.run"        
 conn <- file(fileName,open="r")                                        
 linn <-readLines(conn)                                                  
 run <- print(linn[1])                                                   

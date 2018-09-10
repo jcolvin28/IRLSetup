@@ -26,7 +26,7 @@ addEnsStats <- function(df.ens, cols = 2:22) {
 
 ```{r current_date_cycle, echo=FALSE, include=FALSE}
 # reading the current cycle number
-fileName <- "/home/ptaeb/wind-setup/current.run"
+fileName <- "/home/ptaeb/IRLsetup/current.run"
 conn <- file(fileName,open="r")
 linn <-readLines(conn)
 cycle_num <- print(linn[1])
