@@ -57,7 +57,7 @@ if ($file eq '') {
   exit 8;
 }
 
-open (In, "$curl -L -f -s $file|");
+open (In, "$curl -L -f -s $file |");
 
 $last=0;
 $lastnum = -1;
@@ -69,11 +69,11 @@ while (<In>) {
      print $_;
   }
   else {
-#    grib1/2 inventory, figure range field
+     # grib1/2 inventory, figure range field
      chomp;
      ($f1,$num,$rest) = split(/:/,$_,3);
 
-#    check for missing file
+     # check for missing file
      if (! defined($num) || "$num" eq "") {
         sleep(5);
         print STDERR "ERROR: Bad URL or not wgrib inventory: $file\n";

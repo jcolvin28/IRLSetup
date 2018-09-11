@@ -103,7 +103,7 @@ if ($lastfrom ne '') {
 
 unlink $file;
 if ($range ne "") {
-   $err=system("$curl -L -f -v -s -r \"$range\" $url -o $file.tmp");
+   $err=system("$curl -L -f -v -s -r \"$range\" $url -o $file");
    $err = $err >> 8;
    if ($err != 0) {
       print STDERR "error in getting file $err\n";
@@ -111,7 +111,8 @@ if ($range ne "") {
       exit $err;
    }
    if (! rename "$file.tmp",  "$file") {
-      sleep(30);
+   #   sleep(30);
+       sleep(2);
    }
 }
 else {
