@@ -132,26 +132,21 @@ df.run <- data.frame(runtime = rep(fcst.time, 44),
 df.run$validtime <- df.run$runtime + hours(df.run$fcsthour)     
 
 # loop through all the ensemble members and download all the data
-# for (ens.mem in ens.mems) {
+for (ens.mem in ens.mems) {
     # for (ens.mem in 'gep01') { # for testing purposes
     
     # vectors to store the interpolated u and v forecasts for this ensemble
     # member
-#   mem.u <- NULL
-#   mem.v <- NULL
+    mem.u <- NULL
+    mem.v <- NULL
     
     # loop through all forecast hours and download data
-#    for (fcst.hour in seq(0, 129, by = 3)) {
-        # for (fcst.hour in 0:0) { # for testing purposes
-        # download the file for this ensemble member and forecast hour
-#        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
-#                                  run, getFcstHrString(fcst.hour), tmp.path)
-#    }
-#}
-for (ens.mem in ens.mems) {
-    mem.u <- NULL
-    mem.v <- NULL         
-        for (fcst.hour in seq(0, 129, by = 3)) {
+    for (fcst.hour in seq(0, 129, by = 3)) {
+         for (fcst.hour in 0:0) { # for testing purposes
+         download the file for this ensemble member and forecast hour
+         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                                  run, getFcstHrString(fcst.hour), tmp.path)
+
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
