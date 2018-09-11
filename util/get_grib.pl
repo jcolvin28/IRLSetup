@@ -104,6 +104,7 @@ if ($lastfrom ne '') {
 unlink $file;
 if ($range ne "") {
    $err=system("$curl -L -f -v -s -r \"$range\" $url -o $file.tmp");
+   $err=system("$curl CURLOPT_VERBOSE 1L");
    $err = $err >> 8;
    if ($err != 0) {
       print STDERR "error in getting file $err\n";
