@@ -142,8 +142,6 @@ for (ens.mem in ens.mems) {
     
     # loop through all forecast hours and download data
     for (fcst.hour in seq(0, 129, by = 3)) {
-         for (fcst.hour in 0:0) { # for testing purposes
-         download the file for this ensemble member and forecast hour
          gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
 
@@ -192,7 +190,7 @@ for (ens.mem in ens.mems) {
         rm(df.u, df.v)
         file.remove(paste(getwd(), '/tmp/u.csv', sep = ''))
         file.remove(paste(getwd(), '/tmp/v.csv', sep = ''))
-#       file.remove(gefs.file)
+        file.remove(gefs.file)
         file.remove(gefs.trimmed)
         
     }
