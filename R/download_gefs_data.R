@@ -144,17 +144,16 @@ df.run$validtime <- df.run$runtime + hours(df.run$fcsthour)
 #    for (fcst.hour in seq(0, 129, by = 3)) {
         # for (fcst.hour in 0:0) { # for testing purposes
         # download the file for this ensemble member and forecast hour
-#        list.files <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+#        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
 #                                  run, getFcstHrString(fcst.hour), tmp.path)
 #    }
 #}
-list.files(path="/data")
 for (ens.mem in ens.mems) {
     mem.u <- NULL
     mem.v <- NULL         
         for (fcst.hour in seq(0, 129, by = 3)) {
         # trim the .grb2 file to only contain 4 closest cells to KMLB
-        gefs.trimmed <- trimGRIB(wgrib2.path, list.files, lats, lons)
+        gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
@@ -171,11 +170,11 @@ for (ens.mem in ens.mems) {
                                   header = TRUE, stringsAsFactors = FALSE),
                  error = function(e) {
                      print('Download failed. Second attempt ...')
-                     list.files <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                     gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                                run, getFcstHrString(fcst.hour), tmp.path)
                      
                      # trim the .grb2 file to only contain 4 closest cells to KMLB
-                     gefs.trimmed <- trimGRIB(wgrib2.path, list.files, lats, lons)
+                     gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
                      
                      # load in u and v information from this trimmed file
                      wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
@@ -198,7 +197,7 @@ for (ens.mem in ens.mems) {
         rm(df.u, df.v)
         file.remove(paste(getwd(), '/tmp/u.csv', sep = ''))
         file.remove(paste(getwd(), '/tmp/v.csv', sep = ''))
-#       file.remove(list.files)
+#       file.remove(gefs.file)
         file.remove(gefs.trimmed)
         
     }
