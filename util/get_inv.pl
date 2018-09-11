@@ -57,7 +57,7 @@ if ($file eq '') {
   exit 8;
 }
 
-open (In, "$curl --curlopt_timeout 20L -L -f -s $file |");
+open (In, "$curl --connect-timeout 1 -L -f -s $file |");
 
 $last=0;
 $lastnum = -1;

@@ -103,7 +103,7 @@ if ($lastfrom ne '') {
 
 unlink $file;
 if ($range ne "") {
-   $err=system("$curl --curlopt_timeout 20L -L -f -v -s -r \"$range\" $url -o $file.tmp");
+   $err=system("$curl --connect-timeout 1 -L -f -v -s -r \"$range\" $url -o $file.tmp");
    $err = $err >> 8;
    if ($err != 0) {
       print STDERR "error in getting file $err\n";
