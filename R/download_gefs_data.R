@@ -34,7 +34,7 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
                      fcst.hour, '.grb2', sep = '')
     sys.command <- paste(get_inv.path, getIDXurl(ens.mem, date, run, fcst.hour), 
 #                         '| grep "10 m above" |', get_grib.path, 
-                          '|  |', get_grib.path,
+                          '| grep ":"  |', get_grib.path,
                          getGRIBurl(ens.mem, date, run, fcst.hour), outfile)
     system(sys.command)
     return(outfile)
