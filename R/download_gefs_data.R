@@ -143,7 +143,7 @@ for (ens.mem in ens.mems) {
     for (fcst.hour in seq(0, 129, by = 3)) {
          gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
-        gefs.file()
+        gefs.file
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
