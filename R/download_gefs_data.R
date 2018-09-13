@@ -113,10 +113,8 @@ ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06',
 # date/run to grab data (yesterday, 18z)
 # date <- format(Sys.Date() - days(1), '%Y%m%d')                          # BH, cycle 18 of previous day
 # fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
-# run <- '18' 								  # BH, to here
+# run <- '06' 								  # BH, to here
 #
-# date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
-# fcst.time <- as.POSIXct(Sys.Date() + days(run), tz = 'UTC')     # PT, ...
 # reading the current cycle number   			          # PT
 fileName <- "/home/ptaeb/IRLsetup/current.run"     			# PT
 conn <- file(fileName,open="r")      					# PT
@@ -145,7 +143,7 @@ for (ens.mem in ens.mems) {
     for (fcst.hour in seq(0, 129, by = 3)) {
          gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
-
+        gefs.file()
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
