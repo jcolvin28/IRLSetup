@@ -155,7 +155,7 @@ for (ens.mem in ens.mems) {
                                 sep = '')
         system(wgrib2.command)
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match VGRD  -spread ', getwd(), '/tmp/v.csv', 
+                                ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
                                 sep = '')
         system(wgrib2.command)
 
