@@ -33,8 +33,7 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
     outfile <- paste(outpath, '/', ens.mem, '_', date, '_', run, '_', 
                      fcst.hour, '.grb2', sep = '')
     sys.command <- paste(get_inv.path, getIDXurl(ens.mem, date, run, fcst.hour), 
-#                         '| grep "10 m above" |', get_grib.path, 
-                          '| grep ":10 m above ground:"  |', get_grib.path,
+                         '| grep "10 m above" |', get_grib.path, 
                          getGRIBurl(ens.mem, date, run, fcst.hour), outfile)
     system(sys.command)
     return(outfile)
@@ -141,7 +140,10 @@ for (ens.mem in ens.mems) {
     
     # loop through all forecast hours and download data
     for (fcst.hour in seq(0, 129, by = 3)) {
-         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+        # Dumb download for avoiding getting stuck
+        download.file(getGRIBurl(ens.mem, date, run, fcst.hour),tmp.path, wget,  quiet= FALSE, mode="w")
+        
+        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
         gefs.file
         # trim the .grb2 file to only contain 4 closest cells to KMLB
