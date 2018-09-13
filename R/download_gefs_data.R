@@ -142,8 +142,8 @@ for (ens.mem in ens.mems) {
     # loop through all forecast hours and download data
     for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
-        # download.file(getGRIBurl(ens.mem, date, run, fcst.hour),tmp.path, wget,  quiet= FALSE, mode="w")
-        #wget( getGRIBurl(ens.mem, date, run, fcst.hour) )
+        download.file(getGRIBurl(ens.mem, date, run, fcst.hour),tmp.path, wget,  quiet= FALSE, mode="w")
+        # wget( getGRIBurl(ens.mem, date, run, fcst.hour) )
         
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
