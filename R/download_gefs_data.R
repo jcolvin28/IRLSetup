@@ -144,7 +144,7 @@ for (ens.mem in ens.mems) {
         # Dumb download for avoiding getting stuck
         url <- paste('http://www.ftp.ncep.noaa.gov/data/nccf/com/gens/prod/gefs.',
                    date, '/', run, '/pgrb2ap5/', ens.mem, '.t', run,
-                   'z.pgrb2a.0p50.f', fcst.hour, sep = '')
+                   'z.pgrb2a.0p50.f', fcst.hour)
 
         wget(url)
         
