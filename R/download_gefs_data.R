@@ -142,10 +142,11 @@ for (ens.mem in ens.mems) {
     # loop through all forecast hours and download data
     for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
-        wget((ens.mem, date, run, fcst.hour) {
-                 return(paste('http://www.ftp.ncep.noaa.gov/data/nccf/com/gens/prod/gefs.',
+        url <- paste('http://www.ftp.ncep.noaa.gov/data/nccf/com/gens/prod/gefs.',
                    date, '/', run, '/pgrb2ap5/', ens.mem, '.t', run,
-                   'z.pgrb2a.0p50.f', fcst.hour, sep = ''))) 
+                   'z.pgrb2a.0p50.f', fcst.hour, sep = '')
+
+        wget(url)
         
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
