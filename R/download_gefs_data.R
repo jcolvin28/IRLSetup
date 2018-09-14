@@ -202,11 +202,11 @@ for (ens.mem in ens.mems) {
     df.run[[paste(ens.mem, 'v', sep = '.')]] <- mem.v
     
     }, timeout=8, onTimeout="warning");
-    if ( onTimeout == 'warning' ) {
-       fcst.hour <- 0
-       gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
-                            run, getFcstHrString(fcst.hour), tmp.path)
-    }       
+#   if ( onTimeout == 'warning' ) {
+#      fcst.hour <- 0
+#      gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
+#                           run, getFcstHrString(fcst.hour), tmp.path)
+#   }       
 }
 
 # save df.run to disk
