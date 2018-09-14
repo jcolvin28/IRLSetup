@@ -12,7 +12,6 @@
 library(lubridate) # nice date handling
 library(dplyr) # easy row binding
 library(HelpersMG)     # for wget
-library(doParallel)
 
 # functions ---------------------------------------------------------------
 

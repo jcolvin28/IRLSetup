@@ -121,4 +121,4 @@ else {
   exit 8;
 }
 
-exit 0;
+exit 42;
