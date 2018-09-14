@@ -45,7 +45,7 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
 # trimmed file
 trimGRIB <- function(wgrib2.path, file, lats, lons) {
     trimmed.file <- paste(gsub('.grb2', '', file), 'trimmed.grb2', sep = '_')
-    sys.command <- paste(wgrib2.path, ' ', file, '-smal_grib' , lons[1], ':', 
+    sys.command <- paste(wgrib2.path, ' ', file, '-small_grib' , lons[1], ':', 
                          lons[2], ' ', lats[1], ':', lats[2], ' ', 
                          trimmed.file, sep = '')
     system(sys.command)
