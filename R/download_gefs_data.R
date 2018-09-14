@@ -140,19 +140,14 @@ for (ens.mem in ens.mems) {
     mem.v <- NULL
     
     # loop through all forecast hours and download data
+    res <- withTimeout({
     for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         # gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         
-        res <- withTimeout({ 
-                 gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                    run, getFcstHrString(fcst.hour), tmp.path)
-        }, timeout=1.08, onTimeout="error");
-        error = function(e) {
-           downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
-                                  run, getFcstHrString(fcst.hour), tmp.path)
-        }
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
@@ -215,7 +210,11 @@ for (ens.mem in ens.mems) {
         file.remove(gefs.trimmed)
         
     }
-    
+    }, timeout=1.08, onTimeout="error");
+        error = function(e) {
+           downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
+                                  run, getFcstHrString(fcst.hour), tmp.path)
+        }
     # save the completed mem.u and mem.v vectors to df.run
     df.run[[paste(ens.mem, 'u', sep = '.')]] <- mem.u
     df.run[[paste(ens.mem, 'v', sep = '.')]] <- mem.v
