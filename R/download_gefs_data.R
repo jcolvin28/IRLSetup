@@ -34,7 +34,7 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
     outfile <- paste(outpath, '/', ens.mem, '_', date, '_', run, '_', 
                      fcst.hour, '.grb2', sep = '')
     sys.command <- paste(get_inv.path, getIDXurl(ens.mem, date, run, fcst.hour), 
-                         '| grep ":" |', get_grib.path, 
+                         '| grep "10 m above" |', get_grib.path, 
                          getGRIBurl(ens.mem, date, run, fcst.hour), outfile)
     system(sys.command)
     return(outfile)
@@ -148,19 +148,20 @@ for (ens.mem in ens.mems) {
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
         error = function(e) {
+                            fcst.hour <- '000'
                             downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
-                                  run, getFcstHrString(00), tmp.path)
+                                  run, getFcstHrString(fcst.hour), tmp.path)
         }
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match "UGRD:10 m above" -spread ', getwd(), '/tmp/u.csv', 
+                                ' -match UGRD -spread ', getwd(), '/tmp/u.csv', 
                                 sep = '')
         system(wgrib2.command)
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match "VGRD:10 m above" -spread ', getwd(), '/tmp/v.csv', 
+                                ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
                                 sep = '')
         system(wgrib2.command)
 
