@@ -70,6 +70,8 @@ deg2rad <- function(degrees) {
 }
 
 # interpolate some forecast variable (values) to a lat and lon of interest
+res <- NULL
+res <-  withTimeout({
 interpolate <- function(lat, lon, lats, lons, values) {
     # gefs lons are always positive
     lons <- lons - 360
@@ -80,7 +82,7 @@ interpolate <- function(lat, lon, lats, lons, values) {
     weights <- 1 / dists
     return(sum(weights * values) / sum(weights))
 }
-
+}, timeout=8, onTimeout="error");
 # global variables --------------------------------------------------------
 
 # determine wgrib2 path
@@ -137,8 +139,6 @@ for (ens.mem in ens.mems) {
     mem.u <- NULL
     mem.v <- NULL
     
-    res <- NULL
-    res <- withTimeout({ 
     # loop through all forecast hours and download data
     for (fcst.hour in seq(60, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
@@ -202,7 +202,6 @@ for (ens.mem in ens.mems) {
     df.run[[paste(ens.mem, 'u', sep = '.')]] <- mem.u
     df.run[[paste(ens.mem, 'v', sep = '.')]] <- mem.v
     
-    }, timeout=8, onTimeout="error");
 #   if ( onTimeout == 'warning' ) {
 #      fcst.hour <- 0
 #      gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
