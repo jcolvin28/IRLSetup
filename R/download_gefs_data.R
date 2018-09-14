@@ -106,7 +106,7 @@ lons <- seq(279, 279.5, by = 0.5)
 lats <- seq(28, 28.5, by = 0.5)
 
 # ensemble members
-ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06', 
+ens.mems <- c('gep03', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06', 
               'gep07', 'gep08', 'gep09', 'gep10', 'gep11', 'gep12', 'gep13', 
               'gep14', 'gep15', 'gep16', 'gep17', 'gep18', 'gep19', 'gep20')
 
@@ -147,13 +147,20 @@ for (ens.mem in ens.mems) {
         
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
-        error = function(e) {
-                            fcst.hour <- '000'
-                            downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
-                                  run, getFcstHrString(fcst.hour), tmp.path)
-        }
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
+        
+        #
+        info = file.info(gefs.trimmed)
+        empty <- info$size
+        if ( empty == '0' ) {
+            print(empty, quote = FALSE, max.levels = NULL,
+            width = getOption("width"))
+            fcst.hour <- 0
+                            downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
+                                  run, getFcstHrString(fcst.hour), tmp.path)
+            gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
+        } 
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
