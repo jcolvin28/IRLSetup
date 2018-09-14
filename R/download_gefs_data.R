@@ -140,10 +140,10 @@ for (ens.mem in ens.mems) {
     for (fcst.hour in seq(42, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
-        gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
+        # gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         
-        #g efs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
-        #                    run, getFcstHrString(fcst.hour), tmp.path)
+        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                            run, getFcstHrString(fcst.hour), tmp.path)
 
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
