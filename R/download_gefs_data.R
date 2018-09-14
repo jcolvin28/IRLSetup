@@ -39,7 +39,6 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
     system(sys.command)
     return(outfile)
 }
-
 # employ the wgrib2 -small_grid command to reduce the downloaded grib2 file
 # to only contain the four closest points to KMLB, return the path of the
 # trimmed file
@@ -51,7 +50,6 @@ trimGRIB <- function(wgrib2.path, file, lats, lons) {
     system(sys.command)
     return(trimmed.file)
 }
-
 # given a forecast hour (integer), return a three digit string of said forecast
 # hour
 getFcstHrString <- function(fcst.hour) {
@@ -145,9 +143,11 @@ for (ens.mem in ens.mems) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         # gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
-        
+        res <- NULL
+        res <- withTimeout({ 
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                    run, getFcstHrString(fcst.hour), tmp.path)
+        }, timeout=4, onTimeout="error");
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
@@ -210,11 +210,6 @@ for (ens.mem in ens.mems) {
         file.remove(gefs.trimmed)
         
     }
-    }, timeout=2, onTimeout="error");
-        error = function(e) {
-           downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
-                                  run, getFcstHrString(fcst.hour), tmp.path)
-        }
     # save the completed mem.u and mem.v vectors to df.run
     df.run[[paste(ens.mem, 'u', sep = '.')]] <- mem.u
     df.run[[paste(ens.mem, 'v', sep = '.')]] <- mem.v
