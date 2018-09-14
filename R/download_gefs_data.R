@@ -103,7 +103,7 @@ lons <- seq(279, 279.5, by = 0.5)
 lats <- seq(28, 28.5, by = 0.5)
 
 # ensemble members
-ens.mems <- c('gep03', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06', 
+ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06', 
               'gep07', 'gep08', 'gep09', 'gep10', 'gep11', 'gep12', 'gep13', 
               'gep14', 'gep15', 'gep16', 'gep17', 'gep18', 'gep19', 'gep20')
 
@@ -137,7 +137,7 @@ for (ens.mem in ens.mems) {
     mem.v <- NULL
     
     # loop through all forecast hours and download data
-    for (fcst.hour in seq(42, 129, by = 3)) {
+    for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         # gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
