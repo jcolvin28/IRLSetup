@@ -138,7 +138,6 @@ for (ens.mem in ens.mems) {
     mem.v <- NULL
     
     # loop through all forecast hours and download data
-    res <- withTimeout({
     for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
@@ -147,7 +146,7 @@ for (ens.mem in ens.mems) {
         res <- withTimeout({ 
         gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                    run, getFcstHrString(fcst.hour), tmp.path)
-        }, timeout=4, onTimeout="error");
+        }, timeout=1, onTimeout="error");
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
