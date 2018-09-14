@@ -143,21 +143,21 @@ for (ens.mem in ens.mems) {
     for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
-        gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
+        # gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         
-        # gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
-        #                          run, getFcstHrString(fcst.hour), tmp.path)
+        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+                                  run, getFcstHrString(fcst.hour), tmp.path)
  
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match "UGRD:10 m above" -spread ', getwd(), '/tmp/u.csv', 
+                                ' -match UGRD -spread ', getwd(), '/tmp/u.csv', 
                                 sep = '')
         system(wgrib2.command)
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match "VGRD:10 m above" -spread ', getwd(), '/tmp/v.csv', 
+                                ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
                                 sep = '')
         system(wgrib2.command)
 
@@ -181,7 +181,7 @@ for (ens.mem in ens.mems) {
                                              ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
                                              sep = '')
                      system(wgrib2.command)
-                 })
+                 }
         df.u <- read.csv(paste(getwd(), '/tmp/u.csv', sep = ''), header = TRUE,
                          stringsAsFactors = FALSE)
         df.v <- read.csv(paste(getwd(), '/tmp/v.csv', sep = ''), header = TRUE, 
