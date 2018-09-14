@@ -1,6 +1,5 @@
-#!/usr/bin/perl -w
-$curl="/usr/bin/curl";
-
+#!/usr/bin/perl -w 
+$curl="curl";
 # get_inv.pl            wesley ebisuzaki
 # v0.9  1/2005
 #
@@ -58,7 +57,6 @@ if ($file eq '') {
 }
 
 open (In, "$curl -L -f -s $file |");
-
 $last=0;
 $lastnum = -1;
 $has_range = 0;
@@ -72,7 +70,7 @@ while (<In>) {
      # grib1/2 inventory, figure range field
      chomp;
      ($f1,$num,$rest) = split(/:/,$_,3);
-
+     printf "hey";
      # check for missing file
      if (! defined($num) || "$num" eq "") {
         sleep(5);
