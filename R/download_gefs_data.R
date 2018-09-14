@@ -45,7 +45,7 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
 # trimmed file
 trimGRIB <- function(wgrib2.path, file, lats, lons) {
     trimmed.file <- paste(gsub('.grb2', '', file), 'trimmed.grb2', sep = '_')
-    sys.command <- paste(wgrib2.path, ' ', file, ' -small_grib ', lons[1], ':', 
+    sys.command <- paste(wgrib2.path, ' ', file, '-smal_grib' , lons[1], ':', 
                          lons[2], ' ', lats[1], ':', lats[2], ' ', 
                          trimmed.file, sep = '')
     system(sys.command)
@@ -111,19 +111,19 @@ ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06',
               'gep14', 'gep15', 'gep16', 'gep17', 'gep18', 'gep19', 'gep20')
 
 # date/run to grab data (yesterday, 18z)
-# date <- format(Sys.Date() - days(1), '%Y%m%d')                          # BH, cycle 18 of previous day
-# fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
-# run <- '06' 								  # BH, to here
+date <- format(Sys.Date() - days(1), '%Y%m%d')                          # BH, cycle 18 of previous day
+fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
+run <- '18' 								  # BH, to here
 #
 # reading the current cycle number   			          # PT
-fileName <- "/home/ptaeb/IRLsetup/current.run"     			# PT
-conn <- file(fileName,open="r")      					# PT
-linn <-readLines(conn)               					# PT
-run <- print(linn[1])             					# PT
-close(conn)                          					# PT, to here               
+#fileName <- "/home/ptaeb/IRLsetup/current.run"     			# PT
+#conn <- file(fileName,open="r")      					# PT
+#linn <-readLines(conn)               					# PT
+#run <- print(linn[1])             					# PT
+#close(conn)                          					# PT, to here               
 #
-date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
-fcst.time <- as.POSIXct(Sys.Date() + hours(run), tz = 'UTC')    # PT, ...
+#date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
+#fcst.time <- as.POSIXct(Sys.Date() + hours(run), tz = 'UTC')    # PT, ...
 #
 # dataframe to store final information
 df.run <- data.frame(runtime = rep(fcst.time, 44),              
