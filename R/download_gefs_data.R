@@ -70,8 +70,6 @@ deg2rad <- function(degrees) {
 }
 
 # interpolate some forecast variable (values) to a lat and lon of interest
-res <- NULL
-res <-  withTimeout({
 interpolate <- function(lat, lon, lats, lons, values) {
     # gefs lons are always positive
     lons <- lons - 360
@@ -82,7 +80,6 @@ interpolate <- function(lat, lon, lats, lons, values) {
     weights <- 1 / dists
     return(sum(weights * values) / sum(weights))
 }
-}, timeout=8, onTimeout="error");
 # global variables --------------------------------------------------------
 
 # determine wgrib2 path
