@@ -210,7 +210,7 @@ for (ens.mem in ens.mems) {
         file.remove(gefs.trimmed)
         
     }
-    }, timeout=1.08, onTimeout="error");
+    }, timeout=4, onTimeout="error");
         error = function(e) {
            downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
                                   run, getFcstHrString(fcst.hour), tmp.path)
