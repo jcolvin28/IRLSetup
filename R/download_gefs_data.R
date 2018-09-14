@@ -209,7 +209,7 @@ for (ens.mem in ens.mems) {
         
     }
     
-    }, timeout=2, onTimeout="error");
+    }, timeout=4, onTimeout="error");
     # save the completed mem.u and mem.v vectors to df.run
     df.run[[paste(ens.mem, 'u', sep = '.')]] <- mem.u
     df.run[[paste(ens.mem, 'v', sep = '.')]] <- mem.v
