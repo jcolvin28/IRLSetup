@@ -34,7 +34,7 @@ downloadGRIB <- function(get_inv.path, get_grib.path, ens.mem, date, run,
     outfile <- paste(outpath, '/', ens.mem, '_', date, '_', run, '_', 
                      fcst.hour, '.grb2', sep = '')
     sys.command <- paste(get_inv.path, getIDXurl(ens.mem, date, run, fcst.hour), 
-                         '| grep "10 m above" |', get_grib.path, 
+                         '| grep ":" |', get_grib.path, 
                          getGRIBurl(ens.mem, date, run, fcst.hour), outfile)
     system(sys.command)
     return(outfile)
@@ -153,17 +153,17 @@ for (ens.mem in ens.mems) {
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match UGRD -spread ', getwd(), '/tmp/u.csv', 
+                                ' -match "UGRD:10 m above" -spread ', getwd(), '/tmp/u.csv', 
                                 sep = '')
         system(wgrib2.command)
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
+                                ' -match "VGRD:10 m above" -spread ', getwd(), '/tmp/v.csv', 
                                 sep = '')
         system(wgrib2.command)
 
         # now load these .csv files in
- #       tryCatch(df.u <- read.csv(paste(getwd(), '/tmp/u.csv', sep = ''), 
-#                                  header = TRUE, stringsAsFactors = FALSE),
+        tryCatch(df.u <- read.csv(paste(getwd(), '/tmp/u.csv', sep = ''), 
+                                  header = TRUE, stringsAsFactors = FALSE),
                  error = function(e) {
                      print('Download failed. Second attempt ...')
                      gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
@@ -182,8 +182,6 @@ for (ens.mem in ens.mems) {
                                              sep = '')
                      system(wgrib2.command)
                  }
-        df.u <- read.csv(paste(getwd(), '/tmp/u.csv', sep = ''), header = TRUE,
-                         stringsAsFactors = FALSE)
         df.v <- read.csv(paste(getwd(), '/tmp/v.csv', sep = ''), header = TRUE, 
                          stringsAsFactors = FALSE)
         
