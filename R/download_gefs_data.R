@@ -182,6 +182,7 @@ for (ens.mem in ens.mems) {
                                              sep = '')
                      system(wgrib2.command)
                  }
+        )
         df.v <- read.csv(paste(getwd(), '/tmp/v.csv', sep = ''), header = TRUE, 
                          stringsAsFactors = FALSE)
         
