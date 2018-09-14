@@ -111,19 +111,19 @@ ens.mems <- c('gec00', 'gep01', 'gep02', 'gep03', 'gep04', 'gep05', 'gep06',
               'gep14', 'gep15', 'gep16', 'gep17', 'gep18', 'gep19', 'gep20')
 
 # date/run to grab data (yesterday, 18z)
-date <- format(Sys.Date() - days(1), '%Y%m%d')                          # BH, cycle 18 of previous day
-fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
-run <- '18' 								  # BH, to here
+#date <- format(Sys.Date() - days(1), '%Y%m%d')                          # BH, cycle 18 of previous day
+#fcst.time <- as.POSIXct(Sys.Date() - days(1) + hours(18), tz = 'UTC')   # BH, ...
+#run <- '18' 								  # BH, to here
 #
 # reading the current cycle number   			          # PT
-#fileName <- "/home/ptaeb/IRLsetup/current.run"     			# PT
-#conn <- file(fileName,open="r")      					# PT
-#linn <-readLines(conn)               					# PT
-#run <- print(linn[1])             					# PT
-#close(conn)                          					# PT, to here               
+fileName <- "/home/ptaeb/IRLsetup/current.run"     			# PT
+conn <- file(fileName,open="r")      					# PT
+linn <-readLines(conn)               					# PT
+run <- print(linn[1])             					# PT
+close(conn)                          					# PT, to here               
 #
-#date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
-#fcst.time <- as.POSIXct(Sys.Date() + hours(run), tz = 'UTC')    # PT, ...
+date <- format(Sys.Date(), '%Y%m%d')                            # PT, for catching all cycle of the current day
+fcst.time <- as.POSIXct(Sys.Date() + hours(run), tz = 'UTC')    # PT, ...
 #
 # dataframe to store final information
 df.run <- data.frame(runtime = rep(fcst.time, 44),              
@@ -142,10 +142,10 @@ for (ens.mem in ens.mems) {
     # loop through all forecast hours and download data
     for (fcst.hour in seq(0, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
-        # wget(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
-        # wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
+        # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
+        gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         
-        gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
+        # gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                   run, getFcstHrString(fcst.hour), tmp.path)
  
         # trim the .grb2 file to only contain 4 closest cells to KMLB
@@ -174,11 +174,11 @@ for (ens.mem in ens.mems) {
                      
                      # load in u and v information from this trimmed file
                      wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                             ' -match UGRD -spread ', getwd(), '/tmp/u.csv', 
+                                             ' -match "UGRD:10 m above" -spread ', getwd(), '/tmp/u.csv', 
                                              sep = '')
                      system(wgrib2.command)
                      wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                             ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
+                                             ' -match "VGRD:10 m above" -spread ', getwd(), '/tmp/v.csv', 
                                              sep = '')
                      system(wgrib2.command)
                  })
