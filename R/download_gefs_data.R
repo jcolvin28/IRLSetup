@@ -140,7 +140,7 @@ for (ens.mem in ens.mems) {
     mem.v <- NULL
     
     # loop through all forecast hours and download data
-    for (fcst.hour in seq(60, 129, by = 3)) {
+    for (fcst.hour in seq(42, 129, by = 3)) {
         # Dumb download for avoiding getting stuck
         # get(getIDXurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
         # gefs.file <- wget(getGRIBurl(ens.mem, date, run,  getFcstHrString(fcst.hour)))
