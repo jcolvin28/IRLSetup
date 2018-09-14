@@ -56,7 +56,7 @@ if ($file eq '') {
   exit 8;
 }
 
-open (In, "$curl -f -s $file |");
+open (In, "$curl -m 4 -f -s $file |");
 $last=0;
 $lastnum = -1;
 $has_range = 0;

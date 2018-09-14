@@ -150,11 +150,11 @@ for (ens.mem in ens.mems) {
         
         # load in u and v information from this trimmed file
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match "UGRD:10 m above" -spread ', getwd(), '/tmp/u.csv', 
+                                ' -match UGRD -spread ', getwd(), '/tmp/u.csv', 
                                 sep = '')
         system(wgrib2.command)
         wgrib2.command <- paste(wgrib2.path, ' ', gefs.trimmed, 
-                                ' -match "VGRD:1m m above" -spread ', getwd(), '/tmp/v.csv', 
+                                ' -match VGRD -spread ', getwd(), '/tmp/v.csv', 
                                 sep = '')
         system(wgrib2.command)
 
