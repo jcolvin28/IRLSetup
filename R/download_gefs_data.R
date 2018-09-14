@@ -12,7 +12,7 @@
 library(lubridate) # nice date handling
 library(dplyr) # easy row binding
 library(HelpersMG)     # for wget
-
+library(R.utils)
 # functions ---------------------------------------------------------------
 
 # grab the url (through ncep's ftp site) of the grib2 we want to download
@@ -148,7 +148,11 @@ for (ens.mem in ens.mems) {
         res <- withTimeout({ 
                  gefs.file <- downloadGRIB(get_inv.path, get_grib.path, ens.mem, date, 
                                    run, getFcstHrString(fcst.hour), tmp.path)
-        }, timeout=1.08, onTimeout="silent");
+        }, timeout=1.08, onTimeout="error");
+        error = function(e) {
+           downloadGRIB(get_inv.path, get_grib.path, ens.mem, date,
+                                  run, getFcstHrString(fcst.hour), tmp.path)
+        }
         # trim the .grb2 file to only contain 4 closest cells to KMLB
         gefs.trimmed <- trimGRIB(wgrib2.path, gefs.file, lats, lons)
         
