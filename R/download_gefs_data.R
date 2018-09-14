@@ -212,7 +212,7 @@ for (ens.mem in ens.mems) {
     df.run[[paste(ens.mem, 'u', sep = '.')]] <- mem.u
     df.run[[paste(ens.mem, 'v', sep = '.')]] <- mem.v
     
-    }, timeout=4, onTimeout="error");
+    }, timeout=8, onTimeout="error");
 }
 
 # save df.run to disk
