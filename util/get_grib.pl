@@ -103,12 +103,17 @@ if ($lastfrom ne '') {
 
 unlink $file;
 if ($range ne "") {
-   $err=system("$curl -m 8 -f -v -s -r \"$range\" $url -o $file.tmp ");
+   # $err=system("$curl -f -v -s -r \"$range\" $url -o $file.tmp ");
+   $err=system("$curl -m 8 -f -v -s -r \"$range\" $url -o $file.tmp ");                        #PT
    $err = $err >> 8;
    if ($err != 0) {
-      print STDERR "error in getting file $err\n";
-      sleep(20);
-      exit $err;
+      print STDERR "8 sec wait not responded in getting $err, trying again waiting 20 sec\n";  #PT
+      $err=system("$curl -m 20 -f -v -s -r \"$range\" $url -o $file.tmp ");                    #PT
+      if ($err != 0) {
+         print STDERR "error in getting file $err\n";
+         sleep(20);
+         exit $err;
+      }
    }
    if (! rename "$file.tmp",  "$file") {
       sleep(30);
