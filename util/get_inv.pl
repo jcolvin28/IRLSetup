@@ -70,7 +70,6 @@ while (<In>) {
      # grib1/2 inventory, figure range field
      chomp;
      ($f1,$num,$rest) = split(/:/,$_,3);
-     printf "hey";
      # check for missing file
      if (! defined($num) || "$num" eq "") {
         sleep(5);
