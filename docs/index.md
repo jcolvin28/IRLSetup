@@ -3,7 +3,7 @@ Current Forecast 2019-03-29, Cycle 12 UTC
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2019-03-29 14:15:42.
+> Forecast valid 2019-03-29 16:19:00.
 
 Explanation
 -----------
