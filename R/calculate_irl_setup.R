@@ -154,7 +154,7 @@ gefs.runs <- tail(unique(df.all$runtime), 16)                          # PT - fo
 # df.gefs.3 <- df.all[df.all$runtime == gefs.runs[3],-c(46, 47)]       # BH - for one cycle/day
 # df.gefs.recent <- df.all[df.all$runtime == gefs.runs[4],-c(46, 47)]  # BH - for one cycle/day
 #
-df.gefs.1 <- df.all[df.all$runtime == gefs.runs[1],-c(46, 47)]         # PT - for 4 cycles/day
+df.gefs.1 <- df.all[df.all$runtime == gefs.runs[4],-c(46, 47)]         # PT - for 4 cycles/day
 df.gefs.2 <- df.all[df.all$runtime == gefs.runs[8],-c(46, 47)]         # PT - for 4 cycles/day
 df.gefs.3 <- df.all[df.all$runtime == gefs.runs[12],-c(46, 47)]        # PT - for 4 cycles/day
 df.gefs.recent <- df.all[df.all$runtime == gefs.runs[16],-c(46, 47)]   # PT - for 4 cycles/day
