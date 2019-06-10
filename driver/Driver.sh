@@ -1,8 +1,13 @@
 #!/bin/bash
-# name Multistage log file
+# Author:
+# Peyman Taeb
+########################################
+
+# Log file
 STARTDATETIME=`date +'%Y-%h-%d-T%H:%M'`
 SYSLOG=`pwd`/irlSetup-${STARTDATETIME}.log
-#
+
+# Detecting loop
 for (( ; ; )); do
     today_date=`date '+%Y%m%d'`             
 
