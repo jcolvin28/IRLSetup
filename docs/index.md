@@ -3,7 +3,7 @@ Current Forecast 2020-02-11, Cycle 12 UTC
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2020-02-11 12:35:31.
+> Forecast valid 2020-02-11 15:15:29.
 
 Explanation
 -----------
