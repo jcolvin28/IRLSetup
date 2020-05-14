@@ -3,7 +3,7 @@ Current Forecast 2020-05-14, Cycle 00 UTC
 
 [![](img/raw_setup.png)](https://fit-winds.github.io/IRLSetup/img/raw_setup.png)
 
-> Forecast valid 2020-05-14 01:54:55.
+> Forecast valid 2020-05-14 05:23:06.
 
 Explanation
 -----------
